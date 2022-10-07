@@ -9,3 +9,15 @@
     width: 142px;
     height: 33px;
 }
+
+@media screen and (max-width:917px) {
+    .header__logo {
+        padding-left: 10px;
+    }
+}
+
+@media screen and (max-width:534px) {
+    .header__logo {
+        padding-left: 20px;
+    }
+}
