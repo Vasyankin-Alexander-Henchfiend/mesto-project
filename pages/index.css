@@ -1,0 +1,31 @@
+@import url(../vendor/normalize.css);
+
+@import url(../vendor/fonts/fonts.css);
+
+@import url(../blocks/root/root.css);
+
+/*Вся страница*/
+@import url(../blocks/page/page.css);
+
+/*Заголовок*/
+@import url(../blocks/header/header.css);
+@import url(..);
+
+/*Основное содержание*/
+@import url(../blocks/content/content.css);
+
+/*Секция с профилем*/
+@import url(../blocks/profile/profile.css);
+
+/*Секция c фото*/
+@import url(../blocks/elements/elements.css);
+
+@import url(../blocks/element/element.css);
+
+/*Подвал*/
+@import url(../blocks/footer/footer.css);
+@import url(..);
+
+/*Всплывающее окно*/
+@import url(../blocks/popup/popup.css);
+
