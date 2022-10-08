@@ -8,13 +8,10 @@
     width: 22px;
     height: 19px;
     border-style: none;
-    position: absolute;
-    top: 312px;
-    left: 240px;
     cursor: pointer;
 }
 
 .element__like-button:hover {
-    opacity: 0.6;
+    opacity: 0.5;
     transition: opacity 0.0s linear;
 }

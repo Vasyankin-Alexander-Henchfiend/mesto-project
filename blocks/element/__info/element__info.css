@@ -1,0 +1,7 @@
+.element__info {
+    width: 100%;
+    max-width: 241px;
+    display: flex;
+    align-items: baseline;
+    padding: 0 20px 25px 21px;
+}

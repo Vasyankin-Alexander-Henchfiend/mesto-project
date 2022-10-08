@@ -8,6 +8,9 @@
     line-height: 48px; 
     color: #FFFFFF;
     grid-area: name;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 @media screen and (max-width:375px) {
