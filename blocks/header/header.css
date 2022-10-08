@@ -3,6 +3,13 @@
     max-width: 880px;
     border-bottom: 1px solid rgba(84,84,84,.7);
     padding: 45px 0 40px;
+    line-height: 0;
+}
+
+@media screen and (max-width:375px) {
+    .header {
+        padding: 28px 0 30.6px;
+    }
 }
 
 .header__logo {
@@ -19,5 +26,13 @@
 @media screen and (max-width:534px) {
     .header__logo {
         padding-left: 20px;
+    }
+}
+
+@media screen and (max-width:375px) {
+    .header__logo {
+        padding-left: 27px;
+        width: 103.74px;
+        height: 24.4px;
     }
 }
