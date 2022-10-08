@@ -1,0 +1,21 @@
+.profile__title {
+    margin: 0;
+    vertical-align: bottom;
+    font-family: 'Inter', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 42px;
+    line-height: 48px; 
+    color: #FFFFFF;
+    grid-area: name;
+}
+
+@media screen and (max-width:375px) {
+    .profile__title {
+        font-size: 27px;
+        line-height: 33px;
+        text-align: center;
+        grid-column: 1/7;
+        justify-self: center;
+    }
+}
