@@ -12,3 +12,9 @@
     -webkit-box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
     -moz-box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
 }
+
+@media screen and (max-width:394px) {
+    .popup__conteiner {
+        min-height: 322px;
+    }
+}
