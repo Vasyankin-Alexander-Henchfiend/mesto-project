@@ -86,7 +86,6 @@ popupAddElementCloseButton.addEventListener('click', function () {
 //подключаем функцию добавления картинок
 const elements = document.querySelector('.elements');
 const elementAddForm = document.querySelector('.popup__form_type_add-form');
-// const elementAddSaveButton = elementAddForm.querySelector('.popup__save-button');
 
 function addElement(nameValue, sourceValue) {
   const elementTemplate = document.querySelector('#element-template').content;
@@ -100,21 +99,16 @@ function addElement(nameValue, sourceValue) {
   });
   
 elements.prepend(element); 
+popupAddElement.classList.remove('popup_opened');
 };
 
-
-
-
-function save(evt) {
+elementAddForm.addEventListener('submit', function(evt) {
   evt.preventDefault(); 
   const name = document.querySelector('.popup__form-input_type_add-name');
   const source = document.querySelector('.popup__form-input_type_add-source');
 
   addElement(name.value, source.value);
-  // renderHasSongs();
 
   name.value = '';
   source.value = '';
-};
-
-elementAddForm.addEventListener('submit', save);
+});
