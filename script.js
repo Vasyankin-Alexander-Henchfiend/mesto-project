@@ -59,15 +59,6 @@ const initialCards = [
     }
     ];
 
-    //подключаем лайки
-    // const cardLikeButtons = document.querySelectorAll('.element__like-button');
-
-    // function cardLikeButtonActive () {
-    //     target.cardLikeButtons.classList.add('element__like-button_active');
-    // }
-    
-    // cardLikeButtons.addEventListener('click', cardLikeButtonActive);
-
 //подключаем функцию открытия/закрытия окна добавления картинок
 const addButton = document.querySelector('.profile__add-button');
 const popupAddElement = document.querySelector('.popup_type_add-element');
