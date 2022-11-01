@@ -85,12 +85,14 @@ function addElement(nameValue, sourceValue) {
   element.querySelector('.element__title').textContent = nameValue;
   element.querySelector('.element__image').src = sourceValue;
   
+  element.querySelector('.element__delete').addEventListener('click', function(evt) { element.remove() });
+
   element.querySelector('.element__like-button').addEventListener('click', function (evt) {
      evt.target.classList.toggle('element__like-button_active');
   });
-  
-elements.prepend(element); 
-popupAddElement.classList.remove('popup_opened');
+ 
+  elements.prepend(element); 
+  popupAddElement.classList.remove('popup_opened');
 };
 
 elementAddForm.addEventListener('submit', function(evt) {
