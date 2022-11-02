@@ -112,7 +112,6 @@ addButton.addEventListener('click', function () {
 
 
 //подключаем функцию добавления картинок
-
 const elementAddForm = document.querySelector('.popup__form_type_add-form');
 
 function addElement(nameValue, sourceValue) {
@@ -121,6 +120,7 @@ function addElement(nameValue, sourceValue) {
 
   element.querySelector('.element__title').textContent = nameValue;
   element.querySelector('.element__image').src = sourceValue;
+  element.querySelector('.element__image').alt = nameValue;
   
   element.querySelector('.element__delete').addEventListener('click', function(evt) { element.remove() });
 
