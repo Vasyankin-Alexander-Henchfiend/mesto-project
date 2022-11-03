@@ -23,3 +23,6 @@
 
 - отвечать требованиям из [чек-листа](https://code.s3.yandex.net/web-developer/checklists-pdf/web-plus/checklist-3.pdf)
 - пройти без ошибок [валидатор](https://validator.w3.org/nu/#file)
+
+
+Сайт доступен по [ссылке](https://vasyankin-alexander-henchfiend.github.io/mesto-project/index.html)

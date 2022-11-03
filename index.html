@@ -35,52 +35,7 @@
 
             <!--Секция с грид-картинками-->
             <section class="elements">
-<<<<<<< Updated upstream
-                <div class="element">
-                    <img src="./vendor/images/karachaevsk.jpg" class="element__image" alt="Карачаевск, церковь.">
-                    <div class="element__info">
-                        <h2 class="element__title">Карачаевск</h2>
-                        <button class="element__like-button" type="button"></button>
-                    </div>
-                </div>
 
-                <div class="element">
-                    <img src="./vendor/images/elbrus-1.png" class="element__image" alt="Гора Эльбрус, .">
-                    <div class="element__info">
-                        <h2 class="element__title">Гора Эльбрус</h2>
-                        <button class="element__like-button" type="button"></button>
-                    </div>
-                </div>
-
-                <div class="element">
-                    <img src="./vendor/images/dombay-1.png" class="element__image" alt="Домбай, .">
-                    <div class="element__info">
-                        <h2 class="element__title">Домбай</h2>
-                        <button class="element__like-button" type="button"></button>
-                    </div>
-                </div>
-=======
->>>>>>> Stashed changes
-
-
-<<<<<<< Updated upstream
-                <div class="element">
-                    <img src="./vendor/images/dombay-2.jpg" class="element__image" alt="Домбай, .">
-                    <div class="element__info">
-                        <h2 class="element__title">Домбай</h2>
-                        <button class="element__like-button" type="button"></button>
-                    </div>
-                </div>
-
-                <div class="element">
-                    <img src="./vendor/images/karachaevo-cherkesseja.png" class="element__image" alt=".">
-                    <div class="element__info">
-                        <h2 class="element__title">Карачаево-Черкесия</h2>
-                        <button class="element__like-button" type="button"></button>
-                    </div>
-                </div>
-=======
->>>>>>> Stashed changes
             </section>
         </main>
 
@@ -90,27 +45,42 @@
                 &copy; 2020 Mesto Russia
             </p>
         </footer>
-        <!--Всплывающее окно-->
-        <div class="popup">
+
+        <!--Всплывающее окно редактирования профиля-->
+        <div class="popup popup_type_edit-profile">
             <div class="popup__conteiner">
-                <button class="popup__close-icon" type="button"></button>
+                <button class="popup__close-icon" type="button" id="close-edit-form"></button>
                 <h2 class="popup__title">Редактировать профиль</h2>
-<<<<<<< Updated upstream
-                <form class="popup__form" name="edit-form">
-                    <input type="text" class="popup__form-input" placeholder="Жак-Ив Кусто" name="name">
-                    <input type="text" class="popup__form-input" placeholder="Исследователь океана" name="status">
-=======
                 <form class="popup__form popup__form_type_edit-form" name="edit-form" id="edit-form">
                     <input type="text" class="popup__form-input popup__form-input_type_edit-name" placeholder="Ваше имя" name="name">
                     <input type="text" class="popup__form-input popup__form-input_type_edit-status" placeholder="Ваша профессия" name="status">
->>>>>>> Stashed changes
                     <button class="popup__save-button" type="submit">Сохранить</button>
                 </form>
             </div>
         </div>
-    </div>
-<<<<<<< Updated upstream
-=======
+
+         <!--Всплывающее окно добавления картинки-->
+        <div class="popup popup_type_add-element">
+            <div class="popup__conteiner">
+                <button class="popup__close-icon" type="button" id="close-add-form"></button>
+                <h2 class="popup__title">Новое место</h2>
+                <form class="popup__form popup__form_type_add-form" name="add-form" id="add-form">
+                    <input type="text" class="popup__form-input popup__form-input_type_add-name" placeholder="Название" name="name">
+                    <input type="text" class="popup__form-input popup__form-input_type_add-source" placeholder="Ссылка на картинку" name="source">
+                    <button class="popup__save-button" type="submit" id="popup__save-button">Создать</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="popup popup_type_image">
+            <div class="popup__conteiner_type_image">
+                <button class="popup__close-icon" type="button"></button>
+                <img src="#" class="popup__image" alt="">
+                <h2 class="popup__caption">Текст</h2>
+            </div>
+        </div>
+
+          </div>
 
     <template id="element-template" class="element-template">
         <div class="element">
@@ -123,7 +93,7 @@
         </div>
     </template>
     
+
     <script src="./scripts/script.js"></script>
->>>>>>> Stashed changes
 </body>
 </html>
