@@ -63,8 +63,11 @@ popupCloseButtons.forEach((button) => {
   button.addEventListener('click', () => closePopup(popup));
 });
 
-editButton.addEventListener('click', function() {
-  openPopup(popupEditProfile)});
+editButton.addEventListener("click", function () {
+  nameInput.value = profileName.textContent.trim();
+  jobInput.value = profileStatus.textContent.trim();
+  openPopup(popupEditProfile);
+});
 
 addButton.addEventListener('click',  function() {
   openPopup(popupAddElement)});
@@ -87,6 +90,7 @@ function createCard(name, source) {
 
   cardElemenImage.addEventListener('click', () => {
     popupImagePic.src = cardElemenImage.src
+    popupImagePic.alt = cardElemenImage.alt
     popupImageCap.textContent = cardElemenImage.alt
     
     openPopup(popupImage)
@@ -100,7 +104,7 @@ initialCards.forEach((item) => {
   elementsContainer.append(element); 
 });
 
-function AddCard(evt) {
+function addCard(evt) {
   evt.preventDefault(); 
   
   const cardElement = createCard(name.value, source.value)
@@ -108,11 +112,10 @@ function AddCard(evt) {
   elementsContainer.prepend(cardElement); 
   closePopup(popupAddElement);
   
-  name.value = '';
-  source.value = '';
+  evt.target.reset()
 };
   
-elementAddForm.addEventListener('submit', AddCard);
+elementAddForm.addEventListener('submit', addCard);
 
 function handleProfileFormSubmit (evt) {
   evt.preventDefault(); 
