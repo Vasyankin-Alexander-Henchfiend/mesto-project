@@ -47,8 +47,9 @@ const elementAddForm = document.querySelector('.popup__form_type_add-form');
 const name = document.querySelector('.popup__form-input_type_add-name');
 const source = document.querySelector('.popup__form-input_type_add-source');
 
-const popupImagePic = popupImage.querySelector('.popup__image')
-const popupImageCap = popupImage.querySelector('.popup__caption')
+
+const popupImagePic = popupImage.querySelector('.popup__image');
+const popupImageCap = popupImage.querySelector('.popup__caption');
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
@@ -57,6 +58,15 @@ function openPopup(popup) {
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
 }
+
+function closePopupWhithEscape(evt) {  
+  const popupOpen = document.querySelector('.popup_opened');
+  if (evt.key === "Escape") {
+    closePopup(popupOpen);
+  }
+}
+
+document.addEventListener('keydown', closePopupWhithEscape);
 
 popupCloseButtons.forEach((button) => {
   const popup = button.closest('.popup');
@@ -72,8 +82,6 @@ editButton.addEventListener("click", function () {
 addButton.addEventListener('click',  function() {
   openPopup(popupAddElement)
 });
-
-
 
 function createCard(name, source) {
   const cardElement = element.cloneNode(true);
