@@ -24,7 +24,7 @@ const initialCards = [
     name: 'Байкал',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
-  ];
+];
 
 const elementsContainer = document.querySelector('.elements');
 const elementTemplate = document.querySelector('#element-template').content;
@@ -50,12 +50,12 @@ const source = document.querySelector('.popup__form-input_type_add-source');
 const popupImagePic = popupImage.querySelector('.popup__image')
 const popupImageCap = popupImage.querySelector('.popup__caption')
 
-function closePopup(popup) {
-  popup.classList.remove('popup_opened');
-}
-
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+}
+
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
 }
 
 popupCloseButtons.forEach((button) => {
@@ -70,7 +70,8 @@ editButton.addEventListener("click", function () {
 });
 
 addButton.addEventListener('click',  function() {
-  openPopup(popupAddElement)});
+  openPopup(popupAddElement)
+});
 
 
 
