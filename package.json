@@ -1,0 +1,31 @@
+{
+  "name": "mesto-project",
+  "version": "0.0.1",
+  "description": "* Интро\r * Макет\r * Требования",
+  "main": "index.js",
+  "scripts": {
+    "build": "rm -rf dist && webpack --mode production",
+    "dev": "webpack serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vasyankin-Alexander-Henchfiend/mesto-project.git"
+  },
+  "author": "Vasyankin Alexander",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vasyankin-Alexander-Henchfiend/mesto-project/issues"
+  },
+  "homepage": "https://github.com/Vasyankin-Alexander-Henchfiend/mesto-project#readme",
+  "devDependencies": {
+    "@babel/core": "^7.20.12",
+    "@babel/preset-env": "^7.20.2",
+    "babel-loader": "^9.1.2",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1"
+  },
+  "dependencies": {
+    "core-js": "^3.27.1"
+  }
+}
