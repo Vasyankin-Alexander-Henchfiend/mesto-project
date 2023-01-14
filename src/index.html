@@ -12,7 +12,7 @@
 
         <!--Заголовок-->
         <header class="header">
-            <img src="<%=require('../vendor/images/logo/Mesto-Russia.svg')%>" class="header__logo" alt="Лготип проекта Mesto Russia.">
+            <img src="<%=require('./vendor/images/logo/Mesto-Russia.svg')%>" class="header__logo" alt="Лготип проекта Mesto Russia.">
         </header>
 
         <!--Основное содержание-->
@@ -20,7 +20,7 @@
             <!--Секция с профилем Кусто-->
             <section class="profile">
                 <div class="profile__container">
-                    <img src="<%=require('../vendor/images/kusto.jpg')%>" class="profile__avatar" alt="Портрет Жак-Ив Кусто.">
+                    <img src="<%=require('./vendor/images/kusto.jpg')%>" class="profile__avatar" alt="Портрет Жак-Ив Кусто.">
                     <div class="profile__info">
                         <h1 class="profile__title">Жак-Ив Кусто</h1>
                         <p class="profile__subtitle">
@@ -51,8 +51,8 @@
                 <button class="popup__close-icon" type="button" id="close-edit-form"></button>
                 <h2 class="popup__title">Редактировать профиль</h2>
                 <form class="popup__form popup__form_type_edit-form" name="edit-form" id="edit-form" novalidate>
-                    <input type="text" class="popup__form-input popup__form-input_type_edit-name" placeholder="Ваше имя" name="name">
-                    <input type="text" class="popup__form-input popup__form-input_type_edit-status" placeholder="Ваша профессия" name="status">
+                    <input type="text" class="popup__form-input popup__form-input_type_edit-name" placeholder="Ваше имя" name="name" required minlength="2" maxlength="40">
+                    <input type="text" class="popup__form-input popup__form-input_type_edit-status" placeholder="Ваша профессия" name="status" required minlength="2" maxlength="200">
                     <button class="popup__save-button" type="submit">Сохранить</button>
                 </form>
             </div>
@@ -64,7 +64,7 @@
                 <button class="popup__close-icon" type="button" id="close-add-form"></button>
                 <h2 class="popup__title">Новое место</h2>
                 <form class="popup__form popup__form_type_add-form" name="add-form" id="add-form" novalidate>
-                    <input type="text" class="popup__form-input popup__form-input_type_add-name" id="image-name-input" placeholder="Название" name="name" required>
+                    <input type="text" class="popup__form-input popup__form-input_type_add-name" id="image-name-input" placeholder="Название" name="name" required minlength="2" maxlength="30">
                     <span class="popup__form-input-error image-name-input-error popup__form-input-error_active"></span>
                     <input type="url" class="popup__form-input popup__form-input_type_add-source" id="image-source-input" placeholder="Ссылка на картинку" name="source" required>
                     <span class="popup__form-input-error image-source-input-error popup__form-input-error_active"></span>

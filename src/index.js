@@ -1,4 +1,4 @@
-import '../pages/index.css';
+import './pages/index.css';
 
 //подключаем подгрузку картинок
 const initialCards = [
