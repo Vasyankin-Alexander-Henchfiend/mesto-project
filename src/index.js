@@ -40,14 +40,14 @@ const initialCards = [
   const profile = document.querySelector('.profile__info');
   const profileName = profile.querySelector('.profile__title');
   const profileStatus = profile.querySelector('.profile__subtitle');
-  const profileForm = document.querySelector('.popup__form_type_edit-form');
-  const nameInput = profileForm.querySelector('.popup__form-input_type_edit-name');
-  const jobInput = profileForm.querySelector('.popup__form-input_type_edit-status');
+  const profileForm = document.forms.editForm;
+  const nameInput = profileForm.elements.name;
+  const jobInput = profileForm.elements.status;
   const addButton = document.querySelector('.profile__add-button');
   const popupAddElement = document.querySelector('.popup_type_add-element');
-  const elementAddForm = document.querySelector('.popup__form_type_add-form');
-  const name = document.querySelector('.popup__form-input_type_add-name');
-  const source = document.querySelector('.popup__form-input_type_add-source');
+  const addForm = document.forms.addForm;
+  const name = addForm.elements.imageName;
+  const source = addForm.elements.imageSource;
   
   
   const popupImagePic = popupImage.querySelector('.popup__image');
@@ -129,7 +129,7 @@ const initialCards = [
     evt.target.reset()
   };
     
-  elementAddForm.addEventListener('submit', addCard);
+  addForm.addEventListener('submit', addCard);
   
   function handleProfileFormSubmit (evt) {
     evt.preventDefault(); 
@@ -145,14 +145,14 @@ const initialCards = [
   /*Тупо валидация */
   const showInputError = (formElement, inputElement, errorMessage) => {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.add('form__input_type_error');
+    inputElement.classList.add('popup__form-input_type_error');
     errorElement.textContent = errorMessage;
     errorElement.classList.add('popup__form-input-error_active');
   };
   
   const hideInputError = (formElement, inputElement) => {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.remove('form__input_type_error');
+    inputElement.classList.remove('popup__form-input_type_error');
     errorElement.classList.remove('popup__form-input-error_active');
     errorElement.textContent = '';
   };
@@ -188,7 +188,7 @@ const initialCards = [
     if (hasInvalidInput(inputList)) {
       buttonElement.classList.add('popup__save-button_inactive');
     } else {
-      buttonElement.classList.remove('popup__save-button_inactive'); /*этот класс надо создать */
+      buttonElement.classList.remove('popup__save-button_inactive'); 
     }
   }
   
