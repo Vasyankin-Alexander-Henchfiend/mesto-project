@@ -33,6 +33,8 @@ const initialCards = [
   const element = elementTemplate.querySelector('.element');
   const cardElement = element.cloneNode(true);
   const cardElemenImage = cardElement.querySelector('.element__image');
+  /*дурацкая константа здесь*/ 
+  const popups = document.querySelectorAll('.popup');
   const popupImage = document.querySelector('.popup_type_image');
   const popupCloseButtons = document.querySelectorAll('.popup__close-icon');
   const editButton = document.querySelector('.profile__edit-button');
@@ -53,30 +55,40 @@ const initialCards = [
   const popupImagePic = popupImage.querySelector('.popup__image');
   const popupImageCap = popupImage.querySelector('.popup__caption');
   
-  function openPopup(popup) {
+  /*работа с модальными окнами */
+  const openPopup = (popup) => {
     popup.classList.add('popup_opened');
-  }
-  
-  /////////////////////////////////////////////////////////////////////////
-  /*Функции закрытия окон*/
-  function closePopup(popup) {
+    document.addEventListener('keydown', closeByEscape);
+  };
+
+  const closePopup = (popup) => {
     popup.classList.remove('popup_opened');
-  }
+    document.removeEventListener('keydown', closeByEscape);
+  };
   
+  const closeByEscape = (evt) => {  
+    const popupOpen = document.querySelector('.popup_opened');
+    if (evt.key === "Escape") {
+      closePopup(popupOpen);
+    }
+  };
+
   popupCloseButtons.forEach((button) => {
     const popup = button.closest('.popup');
     button.addEventListener('click', () => closePopup(popup));
   });
   
-  function closeByEscape(evt) {  
-    const popupOpen = document.querySelector('.popup_opened');
-    if (evt.key === "Escape") {
-      closePopup(popupOpen);
+
+/*можно проще но хз как*/
+popups.forEach((item) => {
+  item.addEventListener('click', (evt) => {
+    if (evt.target === item) {
+      closePopup(item)
     }
-  }
-  
-  document.addEventListener('keydown', closeByEscape);
-  //////////////////////////////////////////////////////////////////////////
+  })
+}) 
+
+//////////////////////////////////////////////////////////////////////////
   
   editButton.addEventListener("click", function () {
     nameInput.value = profileName.textContent.trim();
