@@ -85,46 +85,12 @@ addButton.addEventListener('click', function () {
   openPopup(popupAddElement)
 });
 
-// function createCard(name, source) {
-//   const cardElement = element.cloneNode(true);
-//   const cardElemenImage = cardElement.querySelector('.element__image');
-
-//   cardElement.querySelector('.element__title').textContent = name;
-//   cardElemenImage.src = source;
-//   cardElemenImage.alt = name;
-
-//   cardElement.querySelector('.element__delete').addEventListener('click', function (evt) { cardElement.remove() });
-
-//   cardElement.querySelector('.element__like-button').addEventListener('click', function (evt) {
-//     evt.target.classList.toggle('element__like-button_active');
-//   });
-
-//   cardElemenImage.addEventListener('click', () => {
-//     popupImagePic.src = cardElemenImage.src
-//     popupImagePic.alt = cardElemenImage.alt
-//     popupImageCap.textContent = cardElemenImage.alt
-
-//     openPopup(popupImage)
-//   });
-
-//   return cardElement;
-// };
 
 initialCards.forEach((item) => {
   const element = createCard(item.name, item.link)
   elementsContainer.append(element);
 });
 
-// function addCard(evt) {
-//   evt.preventDefault();
-
-//   const cardElement = createCard(name.value, source.value)
-
-//   elementsContainer.prepend(cardElement);
-//   closePopup(popupAddElement);
-
-//   evt.target.reset()
-// };
 
 addForm.addEventListener('submit', addCard);
 
