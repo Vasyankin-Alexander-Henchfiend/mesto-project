@@ -43,6 +43,8 @@ const popupImage = document.querySelector('.popup_type_image');
 const popupImagePic = popupImage.querySelector('.popup__image');
 const popupImageCap = popupImage.querySelector('.popup__caption');
 
+
+
 export const createCard = (name, source) => {
     const cardElement = element.cloneNode(true);
     const cardElemenImage = cardElement.querySelector('.element__image');
@@ -68,10 +70,7 @@ export const createCard = (name, source) => {
     return cardElement;
 };
 
-// initialCards.forEach((item) => {
-//     const element = createCard(item.name, item.link)
-//     elementsContainer.append(element);
-// });
+
 
 export const addCard = (evt) => {
     evt.preventDefault();

@@ -1,8 +1,11 @@
 import './pages/index.css';
 
 
-import { openPopup, closePopup, closeByEscape } from './components/modal.js';
-import { initialCards, createCard, addCard } from './components/card.js';
+import { openPopup, closePopup, closeByEscape, closeByButton, closeByOverlay } from './components/modal.js';
+import { createCard, initialCards, addCard } from './components/card.js';
+
+closeByButton();
+closeByOverlay();
 
 import { enableValidation } from './components/validate.js';
 
@@ -20,9 +23,9 @@ const elementsContainer = document.querySelector('.elements');
 // const element = elementTemplate.querySelector('.element');
 
 /*дурацкая константа здесь*/
-const popups = document.querySelectorAll('.popup');
+
 // const popupImage = document.querySelector('.popup_type_image');
-const popupCloseButtons = document.querySelectorAll('.popup__close-icon');
+
 const editButton = document.querySelector('.profile__edit-button');
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 const profile = document.querySelector('.profile__info');
@@ -41,39 +44,6 @@ const popupAddElement = document.querySelector('.popup_type_add-element');
 // const popupImagePic = popupImage.querySelector('.popup__image');
 // const popupImageCap = popupImage.querySelector('.popup__caption');
 
-/*работа с модальными окнами */
-// const openPopup = (popup) => {
-//   popup.classList.add('popup_opened');
-//   document.addEventListener('keydown', closeByEscape);
-// };
-
-// const closePopup = (popup) => {
-//   popup.classList.remove('popup_opened');
-//   document.removeEventListener('keydown', closeByEscape);
-// };
-
-// const closeByEscape = (evt) => {
-//   const popupOpen = document.querySelector('.popup_opened');
-//   if (evt.key === "Escape") {
-//     closePopup(popupOpen);
-//   }
-// };
-
-popupCloseButtons.forEach((button) => {
-  const popup = button.closest('.popup');
-  button.addEventListener('click', () => closePopup(popup));
-});
-
-/*можно проще но хз как*/
-popups.forEach((item) => {
-  item.addEventListener('click', (evt) => {
-    if (evt.target === item) {
-      closePopup(item)
-    }
-  })
-})
-
-//////////////////////////////////////////////////////////////////////////
 
 editButton.addEventListener("click", function () {
   nameInput.value = profileName.textContent.trim();
@@ -84,7 +54,6 @@ editButton.addEventListener("click", function () {
 addButton.addEventListener('click', function () {
   openPopup(popupAddElement)
 });
-
 
 initialCards.forEach((item) => {
   const element = createCard(item.name, item.link)
