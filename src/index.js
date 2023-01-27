@@ -2,7 +2,9 @@ import './pages/index.css';
 
 
 import { openPopup, closePopup, closeByEscape, closeByButton, closeByOverlay } from './components/modal.js';
-import { createCard, initialCards, addCard } from './components/card.js';
+import { createCard, getOriginCard, addCard } from './components/card.js';
+
+getOriginCard();
 
 closeByButton();
 closeByOverlay();
@@ -16,15 +18,7 @@ enableValidation({
   inactiveButtonClass: 'popup__button_disabled',
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__error_visible'
-}); 
-
-const elementsContainer = document.querySelector('.elements');
-// const elementTemplate = document.querySelector('#element-template').content;
-// const element = elementTemplate.querySelector('.element');
-
-/*дурацкая константа здесь*/
-
-// const popupImage = document.querySelector('.popup_type_image');
+});
 
 const editButton = document.querySelector('.profile__edit-button');
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
@@ -36,34 +30,19 @@ const nameInput = profileForm.elements.name;
 const jobInput = profileForm.elements.status;
 const addButton = document.querySelector('.profile__add-button');
 const popupAddElement = document.querySelector('.popup_type_add-element');
-// const addForm = document.forms.addForm;
-// const name = addForm.elements.imageName;
-// const source = addForm.elements.imageSource;
+const addForm = document.forms.addForm;
 
-
-// const popupImagePic = popupImage.querySelector('.popup__image');
-// const popupImageCap = popupImage.querySelector('.popup__caption');
-
-
-editButton.addEventListener("click", function () {
+editButton.addEventListener("click", () => {
   nameInput.value = profileName.textContent.trim();
   jobInput.value = profileStatus.textContent.trim();
   openPopup(popupEditProfile);
 });
 
-addButton.addEventListener('click', function () {
-  openPopup(popupAddElement)
-});
-
-initialCards.forEach((item) => {
-  const element = createCard(item.name, item.link)
-  elementsContainer.append(element);
-});
-
+addButton.addEventListener('click', () => openPopup(popupAddElement));
 
 addForm.addEventListener('submit', addCard);
 
-function handleProfileFormSubmit(evt) {
+const handleProfileFormSubmit = (evt) => {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileStatus.textContent = jobInput.value;

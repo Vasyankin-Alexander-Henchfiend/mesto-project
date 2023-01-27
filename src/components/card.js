@@ -1,6 +1,6 @@
 import { openPopup, closePopup } from './modal.js';
 
-export const initialCards = [
+const initialCards = [
     {
         name: 'Архыз',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
@@ -29,23 +29,16 @@ export const initialCards = [
 
 const elementsContainer = document.querySelector('.elements');
 
-const elementTemplate = document.querySelector('#element-template').content;
-const element = elementTemplate.querySelector('.element');
-
+/*дублируется в index.js*/
 const addForm = document.forms.addForm;
 const name = addForm.elements.imageName;
 const source = addForm.elements.imageSource;
 
-/* дублируется*/
 const popupAddElement = document.querySelector('.popup_type_add-element');
 
-const popupImage = document.querySelector('.popup_type_image');
-const popupImagePic = popupImage.querySelector('.popup__image');
-const popupImageCap = popupImage.querySelector('.popup__caption');
-
-
-
-export const createCard = (name, source) => {
+const createCard = (name, source) => {
+    const elementTemplate = document.querySelector('#element-template').content;
+    const element = elementTemplate.querySelector('.element');
     const cardElement = element.cloneNode(true);
     const cardElemenImage = cardElement.querySelector('.element__image');
 
@@ -53,11 +46,15 @@ export const createCard = (name, source) => {
     cardElemenImage.src = source;
     cardElemenImage.alt = name;
 
-    cardElement.querySelector('.element__delete').addEventListener('click', function (evt) { cardElement.remove() });
+    cardElement.querySelector('.element__delete').addEventListener('click', () => { cardElement.remove() });
 
-    cardElement.querySelector('.element__like-button').addEventListener('click', function (evt) {
+    cardElement.querySelector('.element__like-button').addEventListener('click', (evt) => {
         evt.target.classList.toggle('element__like-button_active');
     });
+
+    const popupImage = document.querySelector('.popup_type_image');
+    const popupImagePic = popupImage.querySelector('.popup__image');
+    const popupImageCap = popupImage.querySelector('.popup__caption');
 
     cardElemenImage.addEventListener('click', () => {
         popupImagePic.src = cardElemenImage.src
@@ -70,9 +67,14 @@ export const createCard = (name, source) => {
     return cardElement;
 };
 
+const getOriginCard = () => {
+    initialCards.forEach((item) => {
+        const element = createCard(item.name, item.link)
+        elementsContainer.append(element);
+    });
+}
 
-
-export const addCard = (evt) => {
+const addCard = (evt) => {
     evt.preventDefault();
 
     const cardElement = createCard(name.value, source.value)
@@ -82,3 +84,5 @@ export const addCard = (evt) => {
 
     evt.target.reset()
 };
+
+export { createCard, getOriginCard, addCard };

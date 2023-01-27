@@ -25,10 +25,10 @@ const closeByButton = () => {
 
 const closeByOverlay = () => {
     const popups = document.querySelectorAll('.popup');
-    popups.forEach((item) => {
-        item.addEventListener('click', (evt) => {
-            if (evt.target === item) {
-                closePopup(item)
+    popups.forEach((popup) => {
+        popup.addEventListener('click', (evt) => {
+            if (evt.target === popup) {
+                closePopup(popup)
             }
         });
     });
