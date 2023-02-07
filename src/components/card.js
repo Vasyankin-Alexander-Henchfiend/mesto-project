@@ -34,7 +34,7 @@ const addForm = document.forms.addForm;
 const name = addForm.elements.imageName;
 const source = addForm.elements.imageSource;
 
-const popupAddElement = document.querySelector('.popup_type_add-element');
+
 
 const createCard = (name, source) => {
     const elementTemplate = document.querySelector('#element-template').content;
@@ -77,6 +77,7 @@ const getOriginCard = () => {
 const addCard = (evt) => {
     evt.preventDefault();
 
+    const popupAddElement = document.querySelector('.popup_type_add-element');
     const cardElement = createCard(name.value, source.value)
 
     elementsContainer.prepend(cardElement);
