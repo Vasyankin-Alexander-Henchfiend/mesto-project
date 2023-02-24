@@ -2,7 +2,7 @@ import './pages/index.css';
 
 
 import { openPopup, closePopup, closeByEscape, closeByButton, closeByOverlay } from './components/modal.js';
-import { createCard, getOriginCard, addCard } from './components/card.js';
+import { createCard, getOriginCard, addCard, addForm } from './components/card.js';
 
 getOriginCard();
 
@@ -30,7 +30,6 @@ const nameInput = profileForm.elements.name;
 const jobInput = profileForm.elements.status;
 const addButton = document.querySelector('.profile__add-button');
 const popupAddElement = document.querySelector('.popup_type_add-element');
-const addForm = document.forms.addForm;
 
 editButton.addEventListener("click", () => {
   nameInput.value = profileName.textContent.trim();

@@ -29,7 +29,6 @@ const initialCards = [
 
 const elementsContainer = document.querySelector('.elements');
 
-/*дублируется в index.js*/
 const addForm = document.forms.addForm;
 const name = addForm.elements.imageName;
 const source = addForm.elements.imageSource;
@@ -86,4 +85,4 @@ const addCard = (evt) => {
     evt.target.reset()
 };
 
-export { createCard, getOriginCard, addCard };
+export { createCard, getOriginCard, addCard, addForm };
