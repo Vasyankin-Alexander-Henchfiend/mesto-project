@@ -1,16 +1,12 @@
 import './pages/index.css';
 
+import { openPopup, closePopup, closeByEscape, closeByButtonOrOverlay } from './components/modal.js';
+closeByButtonOrOverlay();
 
-import { openPopup, closePopup, closeByEscape, closeByButton, closeByOverlay } from './components/modal.js';
-import { createCard, getOriginCard, addCard, addForm } from './components/card.js';
-
-getOriginCard();
-
-closeByButton();
-closeByOverlay();
+import { createCard, renderInitialCards, addCard, addForm } from './components/card.js';
+renderInitialCards();
 
 import { enableValidation } from './components/validate.js';
-
 enableValidation({
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
