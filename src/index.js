@@ -1,31 +1,41 @@
-import './pages/index.css';
+import "./pages/index.css";
 
-import { openPopup, closePopup, closeByEscape, closeByButtonOrOverlay } from './components/modal.js';
+import {
+  openPopup,
+  closePopup,
+  closeByEscape,
+  closeByButtonOrOverlay,
+} from "./components/modal.js";
 closeByButtonOrOverlay();
 
-import { createCard, renderInitialCards, addCard, addForm } from './components/card.js';
+import {
+  createCard,
+  renderInitialCards,
+  addCard,
+  addForm,
+} from "./components/card.js";
 renderInitialCards();
 
-import { enableValidation } from './components/validate.js';
+import { enableValidation } from "./components/validate.js";
 enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__form-input',
-  submitButtonSelector: '.popup__save-button',
-  inactiveButtonClass: 'popup__save-button_inactive',
-  inputErrorClass: 'popup__form-input_type_error',
-  errorClass: 'popup__form-input-error_active'
+  formSelector: ".popup__form",
+  inputSelector: ".popup__form-input",
+  submitButtonSelector: ".popup__save-button",
+  inactiveButtonClass: "popup__save-button_inactive",
+  inputErrorClass: "popup__form-input_type_error",
+  errorClass: "popup__form-input-error_active",
 });
 
-const editButton = document.querySelector('.profile__edit-button');
-const popupEditProfile = document.querySelector('.popup_type_edit-profile');
-const profile = document.querySelector('.profile__info');
-const profileName = profile.querySelector('.profile__title');
-const profileStatus = profile.querySelector('.profile__subtitle');
+const editButton = document.querySelector(".profile__edit-button");
+const popupEditProfile = document.querySelector(".popup_type_edit-profile");
+const profile = document.querySelector(".profile__info");
+const profileName = profile.querySelector(".profile__title");
+const profileStatus = profile.querySelector(".profile__subtitle");
 const profileForm = document.forms.editForm;
 const nameInput = profileForm.elements.name;
 const jobInput = profileForm.elements.status;
-const addButton = document.querySelector('.profile__add-button');
-const popupAddElement = document.querySelector('.popup_type_add-element');
+const addButton = document.querySelector(".profile__add-button");
+const popupAddElement = document.querySelector(".popup_type_add-element");
 
 editButton.addEventListener("click", () => {
   nameInput.value = profileName.textContent.trim();
@@ -33,9 +43,9 @@ editButton.addEventListener("click", () => {
   openPopup(popupEditProfile);
 });
 
-addButton.addEventListener('click', () => openPopup(popupAddElement));
+addButton.addEventListener("click", () => openPopup(popupAddElement));
 
-addForm.addEventListener('submit', addCard);
+addForm.addEventListener("submit", addCard);
 
 const handleProfileFormSubmit = (evt) => {
   evt.preventDefault();
@@ -44,4 +54,4 @@ const handleProfileFormSubmit = (evt) => {
   closePopup(popupEditProfile);
 };
 
-profileForm.addEventListener('submit', handleProfileFormSubmit);
+profileForm.addEventListener("submit", handleProfileFormSubmit);
