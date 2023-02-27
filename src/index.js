@@ -1,23 +1,19 @@
 import './pages/index.css';
 
+import { openPopup, closePopup, closeByEscape, closeByButtonOrOverlay } from './components/modal.js';
+closeByButtonOrOverlay();
 
-import { openPopup, closePopup, closeByEscape, closeByButton, closeByOverlay } from './components/modal.js';
-import { createCard, getOriginCard, addCard, addForm } from './components/card.js';
-
-getOriginCard();
-
-closeByButton();
-closeByOverlay();
+import { createCard, renderInitialCards, addCard, addForm } from './components/card.js';
+renderInitialCards();
 
 import { enableValidation } from './components/validate.js';
-
 enableValidation({
   formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
+  inputSelector: '.popup__form-input',
+  submitButtonSelector: '.popup__save-button',
+  inactiveButtonClass: 'popup__save-button_inactive',
+  inputErrorClass: 'popup__form-input_type_error',
+  errorClass: 'popup__form-input-error_active'
 });
 
 const editButton = document.querySelector('.profile__edit-button');

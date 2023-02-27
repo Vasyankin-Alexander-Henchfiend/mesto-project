@@ -40,6 +40,9 @@ const createCard = (name, source) => {
     const element = elementTemplate.querySelector('.element');
     const cardElement = element.cloneNode(true);
     const cardElemenImage = cardElement.querySelector('.element__image');
+    const popupImage = document.querySelector('.popup_type_image');
+    const popupImagePic = popupImage.querySelector('.popup__image');
+    const popupImageCap = popupImage.querySelector('.popup__caption');
 
     cardElement.querySelector('.element__title').textContent = name;
     cardElemenImage.src = source;
@@ -50,10 +53,6 @@ const createCard = (name, source) => {
     cardElement.querySelector('.element__like-button').addEventListener('click', (evt) => {
         evt.target.classList.toggle('element__like-button_active');
     });
-
-    const popupImage = document.querySelector('.popup_type_image');
-    const popupImagePic = popupImage.querySelector('.popup__image');
-    const popupImageCap = popupImage.querySelector('.popup__caption');
 
     cardElemenImage.addEventListener('click', () => {
         popupImagePic.src = cardElemenImage.src
@@ -66,7 +65,7 @@ const createCard = (name, source) => {
     return cardElement;
 };
 
-const getOriginCard = () => {
+const renderInitialCards = () => {
     initialCards.forEach((item) => {
         const element = createCard(item.name, item.link)
         elementsContainer.append(element);
@@ -74,10 +73,10 @@ const getOriginCard = () => {
 }
 
 const addCard = (evt) => {
-    evt.preventDefault();
-
     const popupAddElement = document.querySelector('.popup_type_add-element');
     const cardElement = createCard(name.value, source.value)
+
+    evt.preventDefault();
 
     elementsContainer.prepend(cardElement);
     closePopup(popupAddElement);
@@ -85,4 +84,4 @@ const addCard = (evt) => {
     evt.target.reset()
 };
 
-export { createCard, getOriginCard, addCard, addForm };
+export { createCard, renderInitialCards, addCard, addForm };
