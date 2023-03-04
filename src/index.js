@@ -14,7 +14,6 @@ import {
   addCard,
   addForm,
 } from "./components/card.js";
-renderInitialCards();
 
 import { enableValidation } from "./components/validate.js";
 enableValidation({
@@ -55,3 +54,26 @@ const handleProfileFormSubmit = (evt) => {
 };
 
 profileForm.addEventListener("submit", handleProfileFormSubmit);
+
+
+
+
+
+/********************************API***********************************/
+
+
+function getCards() {
+  return fetch("https://nomoreparties.co/v1/plus-cohort-20/cards", {
+    headers: {
+      authorization: "2286b0f6-c117-40dd-b074-20134fb23036",
+    },
+  })
+    .then((res) => res.json())
+    .then((cards) => {
+      renderInitialCards(cards);
+    });
+}
+
+getCards();
+
+
