@@ -7,7 +7,7 @@ const popupAddElement = document.querySelector(".popup_type_add-element");
 const elementsContainer = document.querySelector(".elements");
 const addForm = document.forms.addForm;
 const name = addForm.elements.imageName;
-const source = addForm.elements.imageSource;
+const link = addForm.elements.imageSource;
 
 const createCard = (name, source) => {
   const elementTemplate = document.querySelector("#element-template").content;
@@ -52,12 +52,27 @@ const renderInitialCards = (cards) => {
 const addCard = (evt) => {
   evt.preventDefault();
 
-  const cardElement = createCard(name.value, source.value);
+  const cardElement = createCard(name.value, link.value);
 
   elementsContainer.prepend(cardElement);
+  postNewCard(name.value, link.value);
   closePopup(popupAddElement);
 
   evt.target.reset();
+};
+
+function postNewCard(name, link) {
+  return fetch("https://nomoreparties.co/v1/plus-cohort-20/cards", {
+    method: "POST",
+    headers: {
+      authorization: "2286b0f6-c117-40dd-b074-20134fb23036",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: name,
+      link: link,
+    }),
+  })
 };
 
 export { createCard, renderInitialCards, addCard, addForm };
