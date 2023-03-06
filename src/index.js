@@ -108,3 +108,4 @@ function patchProfileInfo(name, about) {
     }),
   });
 };
+
