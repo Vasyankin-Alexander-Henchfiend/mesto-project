@@ -9,19 +9,21 @@ const addForm = document.forms.addForm;
 const name = addForm.elements.imageName;
 const link = addForm.elements.imageSource;
 
-const createCard = (name, source) => {
+const createCard = (card) => {
   const elementTemplate = document.querySelector("#element-template").content;
   const element = elementTemplate.querySelector(".element");
   const cardElement = element.cloneNode(true);
+  const cardElementTitle = cardElement.querySelector(".element__title");
   const cardElemenImage = cardElement.querySelector(".element__image");
 
-  cardElement.querySelector(".element__title").textContent = name;
-  cardElemenImage.src = source;
-  cardElemenImage.alt = name;
+  cardElementTitle.textContent = card.name;
+  cardElemenImage.src = card.link;
+  cardElemenImage.alt = card.name;
 
   cardElement
     .querySelector(".element__delete")
     .addEventListener("click", () => {
+      deleteCard(card._id)
       cardElement.remove();
     });
 
@@ -44,7 +46,7 @@ const createCard = (name, source) => {
 
 const renderInitialCards = (cards) => {
   cards.forEach((card) => {
-    const element = createCard(card.name, card.link);
+    const element = createCard(card);
     elementsContainer.append(element);
   });
 };
@@ -52,13 +54,12 @@ const renderInitialCards = (cards) => {
 const addCard = (evt) => {
   evt.preventDefault();
 
-  const cardElement = createCard(name.value, link.value);
-
-  elementsContainer.prepend(cardElement);
-  postNewCard(name.value, link.value);
-  closePopup(popupAddElement);
-
-  evt.target.reset();
+  postNewCard(name.value, link.value)
+    .then((card) => {
+      evt.target.reset();
+      elementsContainer.prepend(createCard(card));
+      closePopup(popupAddElement);
+    })
 };
 
 function postNewCard(name, link) {
@@ -71,7 +72,23 @@ function postNewCard(name, link) {
     body: JSON.stringify({
       name: name,
       link: link,
-    }),
+    })
+  })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+};
+
+function deleteCard(cardId) {
+  fetch(`https://nomoreparties.co/v1/plus-cohort-20/cards/${cardId}`, {
+    method: "DELETE",
+    headers: {
+      authorization: "2286b0f6-c117-40dd-b074-20134fb23036",
+      "Content-Type": "application/json",
+    }
   })
 };
 
