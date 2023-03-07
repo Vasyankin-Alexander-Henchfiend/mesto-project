@@ -21,31 +21,13 @@ function getCards() {
   });
 }
 
-getCards()
-  .then((cards) => {
-    renderInitialCards(cards);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-
 function getProfileInfo() {
   return fetch(`${config.baseUrl}/users/me`, {
     headers: config.headers,
   }).then((res) => {
     return getResOk(res);
-  })
-}
-
-getProfileInfo()
-  .then((data) => {
-    profileName.textContent = data.name;
-    profileStatus.textContent = data.about;
-    profileAvatar.src = data.avatar;
-  })
-  .catch((err) => {
-    console.log(err);
   });
+}
 
 function patchProfileInfo(name, about) {
   return fetch(`${config.baseUrl}/users/me`, {
@@ -57,7 +39,7 @@ function patchProfileInfo(name, about) {
     }),
   }).then((res) => {
     return getResOk(res);
-  })
+  });
 }
 
 function postNewCard(name, link) {
@@ -81,3 +63,31 @@ function deleteCard(cardId) {
     return getResOk(res);
   });
 }
+
+function putLike(cardId) {
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+    method: "PUT",
+    headers: config.headers,
+  }).then((res) => {
+    return getResOk(res);
+  });
+}
+
+function deleteLike(cardId) {
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+    method: "DELETE",
+    headers: config.headers,
+  }).then((res) => {
+    return getResOk(res);
+  });
+}
+
+export {
+  getCards,
+  getProfileInfo,
+  patchProfileInfo,
+  postNewCard,
+  deleteCard,
+  putLike,
+  deleteLike,
+};
