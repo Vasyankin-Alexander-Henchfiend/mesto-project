@@ -51,60 +51,74 @@ const handleProfileFormSubmit = (evt) => {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileStatus.textContent = jobInput.value;
-  patchProfileInfo(nameInput.value, jobInput.value);
+  patchProfileInfo(nameInput.value, jobInput.value).catch((err) => {
+    console.log(err);
+  });
   closePopup(popupEditProfile);
 };
 
 profileForm.addEventListener("submit", handleProfileFormSubmit);
 
-
-
-
-
 /********************************API***********************************/
 
+const config = {
+  baseUrl: "https://nomoreparties.co/v1/plus-cohort-20",
+  headers: {
+    authorization: "2286b0f6-c117-40dd-b074-20134fb23036",
+    "Content-Type": "application/json",
+  },
+};
+
+const getResOk = (res) => {
+  if (res.ok) {
+    return res.json();
+  }
+  return Promise.reject(`Ошибка: ${res.status}`);
+};
 
 function getCards() {
-  return fetch("https://nomoreparties.co/v1/plus-cohort-20/cards", {
-    headers: {
-      authorization: "2286b0f6-c117-40dd-b074-20134fb23036",
-    },
-  })
-    .then((res) => res.json())
-    .then((cards) => {
-      renderInitialCards(cards);
-    });
+  return fetch(`${config.baseUrl}/cards`, {
+    headers: config.headers,
+  }).then((res) => {
+    return getResOk(res);
+  });
 }
 
-getCards();
-
+getCards()
+  .then((cards) => {
+    renderInitialCards(cards);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 function getProfileInfo() {
-  return fetch('https://nomoreparties.co/v1/plus-cohort-20/users/me', {
-  headers: {
-    authorization: '2286b0f6-c117-40dd-b074-20134fb23036'
-  }
-})
-  .then(res => res.json())
+  return fetch(`${config.baseUrl}/users/me`, {
+    headers: config.headers,
+  }).then((res) => {
+    return getResOk(res);
+  });
+}
+
+getProfileInfo()
   .then((data) => {
     profileName.textContent = data.name;
     profileStatus.textContent = data.about;
     profileAvatar.src = data.avatar;
-  }) 
-};
-
-getProfileInfo();
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 function patchProfileInfo(name, about) {
-  fetch("https://nomoreparties.co/v1/plus-cohort-20/users/me", {
+  return fetch(`${config.baseUrl}/users/me`, {
     method: "PATCH",
-    headers: {
-      authorization: "2286b0f6-c117-40dd-b074-20134fb23036",
-      "Content-Type": "application/json",
-    },
+    headers: config.headers,
     body: JSON.stringify({
-      name: name,
-      about: about,
+      name,
+      about,
     }),
+  }).then((res) => {
+    return getResOk(res);
   });
-};
+}

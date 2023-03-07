@@ -15,23 +15,30 @@ const createCard = (card) => {
   const cardElement = element.cloneNode(true);
   const cardElementTitle = cardElement.querySelector(".element__title");
   const cardElemenImage = cardElement.querySelector(".element__image");
+  const cardElementLike = cardElement.querySelector(".element__like-button");
+  const cardElementLikeCounter = cardElement.querySelector(".element__like-button-counter");
+  const cardElementDelete = cardElement.querySelector(".element__delete");
 
   cardElementTitle.textContent = card.name;
   cardElemenImage.src = card.link;
   cardElemenImage.alt = card.name;
+  cardElementLikeCounter.textContent = card.likes.length;
 
-  cardElement
-    .querySelector(".element__delete")
-    .addEventListener("click", () => {
+  if (card.owner._id === 'f19165c60933c9701244ac4f') {
+    cardElementDelete.addEventListener("click", () => {
       deleteCard(card._id)
-      cardElement.remove();
+        .then(() => cardElement.remove())
+        .catch((err) => {
+          console.log(err);
+        });  
     });
+  } else {
+    cardElementDelete.remove();
+  }
 
-  cardElement
-    .querySelector(".element__like-button")
-    .addEventListener("click", (evt) => {
-      evt.target.classList.toggle("element__like-button_active");
-    });
+  cardElementLike.addEventListener("click", (evt) => {
+    evt.target.classList.toggle("element__like-button_active");
+  });
 
   cardElemenImage.addEventListener("click", () => {
     popupImagePic.src = cardElemenImage.src;
@@ -46,50 +53,78 @@ const createCard = (card) => {
 
 const renderInitialCards = (cards) => {
   cards.forEach((card) => {
-    const element = createCard(card);
-    elementsContainer.append(element);
+    elementsContainer.append(createCard(card));
   });
 };
 
 const addCard = (evt) => {
   evt.preventDefault();
-
   postNewCard(name.value, link.value)
     .then((card) => {
       evt.target.reset();
       elementsContainer.prepend(createCard(card));
       closePopup(popupAddElement);
     })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+/********************************API***********************************/
+
+const config = {
+  baseUrl: "https://nomoreparties.co/v1/plus-cohort-20",
+  headers: {
+    authorization: "2286b0f6-c117-40dd-b074-20134fb23036",
+    "Content-Type": "application/json",
+  },
+};
+
+const getResOk = (res) => {
+  if (res.ok) {
+    return res.json();
+  }
+  return Promise.reject(`Ошибка: ${res.status}`);
 };
 
 function postNewCard(name, link) {
-  return fetch("https://nomoreparties.co/v1/plus-cohort-20/cards", {
+  return fetch(`${config.baseUrl}/cards`, {
     method: "POST",
-    headers: {
-      authorization: "2286b0f6-c117-40dd-b074-20134fb23036",
-      "Content-Type": "application/json",
-    },
+    headers: config.headers,
     body: JSON.stringify({
-      name: name,
-      link: link,
-    })
-  })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-};
+      name,
+      link,
+    }),
+  }).then((res) => {
+    return getResOk(res);
+  });
+}
 
 function deleteCard(cardId) {
-  fetch(`https://nomoreparties.co/v1/plus-cohort-20/cards/${cardId}`, {
+  return fetch(`${config.baseUrl}/cards/${cardId}`, {
     method: "DELETE",
-    headers: {
-      authorization: "2286b0f6-c117-40dd-b074-20134fb23036",
-      "Content-Type": "application/json",
-    }
-  })
-};
+    headers: config.headers,
+  }).then((res) => {
+    return getResOk(res);
+  });
+}
+
+function putLike(cardId) {
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+    method: "PUT",
+    headers: config.headers,
+  }).then((res) => {
+    return getResOk(res);
+  });
+}
+
+function deleteLike(cardId) {
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+    method: "DELETE",
+    headers: config.headers,
+  }).then((res) => {
+    return getResOk(res);
+  });
+}
 
 export { createCard, renderInitialCards, addCard, addForm };
