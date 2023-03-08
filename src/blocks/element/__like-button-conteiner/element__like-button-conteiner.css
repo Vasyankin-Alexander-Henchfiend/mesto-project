@@ -1,0 +1,4 @@
+.element__like-button-conteiner {
+    display: flex;
+    flex-direction: column;
+}
