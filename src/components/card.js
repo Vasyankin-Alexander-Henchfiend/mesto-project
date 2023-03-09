@@ -1,5 +1,6 @@
 import { openPopup, closePopup } from "./modal.js";
 import { postNewCard, deleteCard, putLike, deleteLike } from "./api.js";
+import { renderLoading } from "./utils.js";
 
 const popupImage = document.querySelector(".popup_type_image");
 const popupImagePic = popupImage.querySelector(".popup__image");
@@ -10,7 +11,7 @@ const addForm = document.forms.addForm;
 const name = addForm.elements.imageName;
 const link = addForm.elements.imageSource;
 
-const createCard = (card) => {
+const createCard = (card, myId) => {
   const elementTemplate = document.querySelector("#element-template").content;
   const element = elementTemplate.querySelector(".element");
   const cardElement = element.cloneNode(true);
@@ -27,7 +28,7 @@ const createCard = (card) => {
   cardElemenImage.alt = card.name;
   cardElementLikeCounter.textContent = card.likes.length;
 
-  if (card.owner._id === "f19165c60933c9701244ac4f") {
+  if (card.owner._id === myId) {
     cardElementDelete.addEventListener("click", () => {
       deleteCard(card._id)
         .then(() => cardElement.remove())
@@ -38,9 +39,33 @@ const createCard = (card) => {
   } else {
     cardElementDelete.remove();
   }
+  
+  card.likes.forEach((like) => {
+    if(like._id === myId) {
+      cardElementLike.classList.add("element__like-button_active")
+    }
+  })
 
   cardElementLike.addEventListener("click", (evt) => {
-    evt.target.classList.toggle("element__like-button_active");
+    if(!(evt.target.classList.contains("element__like-button_active"))) {
+      putLike(card._id)
+      .then((res) => {
+        evt.target.classList.add("element__like-button_active");
+        cardElementLikeCounter.textContent = res.likes.length;
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    } else {
+      deleteLike(card._id)
+      .then((res) => {
+        evt.target.classList.remove("element__like-button_active")
+        cardElementLikeCounter.textContent = res.likes.length;
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    }
   });
 
   cardElemenImage.addEventListener("click", () => {
@@ -54,22 +79,26 @@ const createCard = (card) => {
   return cardElement;
 };
 
-const renderInitialCards = (cards) => {
+const renderInitialCards = (cards, id) => {
   cards.forEach((card) => {
-    elementsContainer.append(createCard(card));
+    elementsContainer.append(createCard(card, id));
   });
 };
 
 const addCard = (evt) => {
   evt.preventDefault();
+  renderLoading(evt, true)
   postNewCard(name.value, link.value)
     .then((card) => {
       evt.target.reset();
-      elementsContainer.prepend(createCard(card));
+      elementsContainer.prepend(createCard(card, card.owner._id));
       closePopup(popupAddElement);
     })
     .catch((err) => {
       console.log(err);
+    })
+    .finally(() => {
+      renderLoading(evt, false)
     });
 };
 

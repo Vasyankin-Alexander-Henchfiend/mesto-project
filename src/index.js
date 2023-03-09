@@ -25,25 +25,22 @@ enableValidation({
   errorClass: "popup__form-input-error_active",
 });
 
+import { renderLoading } from "./components/utils.js";
+
 import {
   getCards,
   getProfileInfo,
   patchProfileInfo,
   patchProfileAvatar
 } from "./components/api.js";
-getCards()
-  .then((cards) => {
-    renderInitialCards(cards);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-getProfileInfo()
-  .then((data) => {
+
+Promise.all([getProfileInfo(), getCards()])
+  .then(([data, cards]) => {
     profileName.textContent = data.name;
     profileStatus.textContent = data.about;
     profileAvatar.src = data.avatar;
     myId = data._id;
+    renderInitialCards(cards, myId);
   })
   .catch((err) => {
     console.log(err);
@@ -76,6 +73,7 @@ avatarChangeButton.addEventListener("click", () => openPopup(popupChangeAvatar))
 
 const handleAvatarFormSubmit = (evt) => {
   evt.preventDefault();
+  renderLoading(evt, true)
   patchProfileAvatar(avatarInput.value)
     .then(() => {
       profileAvatar.src = avatarInput.value;
@@ -84,6 +82,9 @@ const handleAvatarFormSubmit = (evt) => {
     })
     .catch((err) => {
       console.log(err);
+    })
+    .finally(() => {
+      renderLoading(evt, false)
     });
 };
 
@@ -97,15 +98,20 @@ editButton.addEventListener("click", () => {
 
 const handleProfileFormSubmit = (evt) => {
   evt.preventDefault();
+  renderLoading(evt, true)
   patchProfileInfo(nameInput.value, jobInput.value)
   .then(() => {
     profileName.textContent = nameInput.value;
     profileStatus.textContent = jobInput.value;
+    closePopup(popupEditProfile);
   })
   .catch((err) => {
     console.log(err);
+  })
+  .finally(() => {
+    renderLoading(evt, false)
   });
-  closePopup(popupEditProfile);
+  
 };
 
 profileForm.addEventListener("submit", handleProfileFormSubmit);
