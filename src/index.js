@@ -3,7 +3,6 @@ import "./pages/index.css";
 import {
   openPopup,
   closePopup,
-  closeByEscape,
   closeByButtonOrOverlay,
 } from "./components/modal.js";
 closeByButtonOrOverlay();
