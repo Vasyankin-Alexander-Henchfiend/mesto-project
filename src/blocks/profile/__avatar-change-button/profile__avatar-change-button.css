@@ -1,0 +1,23 @@
+.profile__avatar-change-button {
+    padding: 0;
+    background-color: rgba(0, 0, 0);
+    background-image: url(../../../vendor/images/edit.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 26px;
+    width: 120px;
+    aspect-ratio: 1 / 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.8 .2s ease-in-out;
+}
+
+.profile__avatar-change-button:hover{
+    opacity: .8;
+}
+

@@ -6,6 +6,6 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 22px;
     position: relative;
 }

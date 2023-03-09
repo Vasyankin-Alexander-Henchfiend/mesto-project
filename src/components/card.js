@@ -1,31 +1,6 @@
 import { openPopup, closePopup } from "./modal.js";
-
-const initialCards = [
-  {
-    name: "Архыз",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-  },
-  {
-    name: "Челябинская область",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-  },
-  {
-    name: "Иваново",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-  },
-  {
-    name: "Камчатка",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-  },
-  {
-    name: "Холмогорский район",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-  },
-  {
-    name: "Байкал",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-  },
-];
+import { postNewCard, deleteCard, putLike, deleteLike } from "./api.js";
+import { renderLoading } from "./utils.js";
 
 const popupImage = document.querySelector(".popup_type_image");
 const popupImagePic = popupImage.querySelector(".popup__image");
@@ -34,29 +9,64 @@ const popupAddElement = document.querySelector(".popup_type_add-element");
 const elementsContainer = document.querySelector(".elements");
 const addForm = document.forms.addForm;
 const name = addForm.elements.imageName;
-const source = addForm.elements.imageSource;
+const link = addForm.elements.imageSource;
 
-const createCard = (name, source) => {
+const createCard = (card, myId) => {
   const elementTemplate = document.querySelector("#element-template").content;
   const element = elementTemplate.querySelector(".element");
   const cardElement = element.cloneNode(true);
+  const cardElementTitle = cardElement.querySelector(".element__title");
   const cardElemenImage = cardElement.querySelector(".element__image");
+  const cardElementLike = cardElement.querySelector(".element__like-button");
+  const cardElementLikeCounter = cardElement.querySelector(
+    ".element__like-button-counter"
+  );
+  const cardElementDelete = cardElement.querySelector(".element__delete");
 
-  cardElement.querySelector(".element__title").textContent = name;
-  cardElemenImage.src = source;
-  cardElemenImage.alt = name;
+  cardElementTitle.textContent = card.name;
+  cardElemenImage.src = card.link;
+  cardElemenImage.alt = card.name;
+  cardElementLikeCounter.textContent = card.likes.length;
 
-  cardElement
-    .querySelector(".element__delete")
-    .addEventListener("click", () => {
-      cardElement.remove();
+  if (card.owner._id === myId) {
+    cardElementDelete.addEventListener("click", () => {
+      deleteCard(card._id)
+        .then(() => cardElement.remove())
+        .catch((err) => {
+          console.log(err);
+        });
     });
+  } else {
+    cardElementDelete.remove();
+  }
+  
+  card.likes.forEach((like) => {
+    if(like._id === myId) {
+      cardElementLike.classList.add("element__like-button_active")
+    }
+  })
 
-  cardElement
-    .querySelector(".element__like-button")
-    .addEventListener("click", (evt) => {
-      evt.target.classList.toggle("element__like-button_active");
-    });
+  cardElementLike.addEventListener("click", (evt) => {
+    if(!(evt.target.classList.contains("element__like-button_active"))) {
+      putLike(card._id)
+      .then((res) => {
+        evt.target.classList.add("element__like-button_active");
+        cardElementLikeCounter.textContent = res.likes.length;
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    } else {
+      deleteLike(card._id)
+      .then((res) => {
+        evt.target.classList.remove("element__like-button_active")
+        cardElementLikeCounter.textContent = res.likes.length;
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    }
+  });
 
   cardElemenImage.addEventListener("click", () => {
     popupImagePic.src = cardElemenImage.src;
@@ -69,22 +79,27 @@ const createCard = (name, source) => {
   return cardElement;
 };
 
-const renderInitialCards = () => {
-  initialCards.forEach((item) => {
-    const element = createCard(item.name, item.link);
-    elementsContainer.append(element);
+const renderInitialCards = (cards, id) => {
+  cards.forEach((card) => {
+    elementsContainer.append(createCard(card, id));
   });
 };
 
 const addCard = (evt) => {
   evt.preventDefault();
-
-  const cardElement = createCard(name.value, source.value);
-
-  elementsContainer.prepend(cardElement);
-  closePopup(popupAddElement);
-
-  evt.target.reset();
+  renderLoading(evt, true)
+  postNewCard(name.value, link.value)
+    .then((card) => {
+      evt.target.reset();
+      elementsContainer.prepend(createCard(card, card.owner._id));
+      closePopup(popupAddElement);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      renderLoading(evt, false)
+    });
 };
 
 export { createCard, renderInitialCards, addCard, addForm };
