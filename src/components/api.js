@@ -82,10 +82,23 @@ function deleteLike(cardId) {
   });
 }
 
+function patchProfileAvatar(avatar) {
+  return fetch(`${config.baseUrl}/users/me/avatar`, {
+    method: "PATCH",
+    headers: config.headers,
+    body: JSON.stringify({
+      avatar
+    }),
+  }).then((res) => {
+    return getResOk(res);
+  });
+}
+
 export {
   getCards,
   getProfileInfo,
   patchProfileInfo,
+  patchProfileAvatar,
   postNewCard,
   deleteCard,
   putLike,

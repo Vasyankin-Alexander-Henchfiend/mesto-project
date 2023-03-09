@@ -1,13 +1,13 @@
-.profile__container {
-    width: 100%;
-    max-width: 486px;
+.profile__avatar-container {
+    width: 120px;
+    height: 120px;
     display: flex;
     align-items: center;
-    gap: 30px;
+    position: relative;
 }
 
 @media screen and (max-width:534px) {
-    .profile__container {
+    .profile__avatar-container {
         flex-direction: column;
         gap: 26px;
     }

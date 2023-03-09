@@ -16,8 +16,9 @@
 
 /*Секция с профилем*/
 @import url(../blocks/profile/profile.css);
-@import url(../blocks/profile/__container/profile__container.css);
+@import url(../blocks/profile/__avatar-container/profile__avatar-container.css);
 @import url(../blocks/profile/__avatar/profile__avatar.css);
+@import url(../blocks/profile/__avatar-change-button/profile__avatar-change-button.css);
 @import url(../blocks/profile/__info/profile__info.css);
 @import url(../blocks/profile/__title/profile__title.css);
 @import url(../blocks/profile/__subtitl/profile__subtitl.css);
