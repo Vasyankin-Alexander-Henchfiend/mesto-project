@@ -25,4 +25,4 @@
 - пройти без ошибок [валидатор](https://validator.w3.org/nu/#file)
 
 
-Сайт доступен по [ссылке](https://vasyankin-alexander-henchfiend.github.io/mesto-project)
+Сайт доступен по [ссылке](https://vasyankin-alexander-henchfiend.github.io/mesto-project/)
