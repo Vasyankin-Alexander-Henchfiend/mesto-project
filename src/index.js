@@ -8,7 +8,6 @@ import {
 closeByButtonOrOverlay();
 
 import {
-  createCard,
   renderInitialCards,
   addCard,
   addForm,
